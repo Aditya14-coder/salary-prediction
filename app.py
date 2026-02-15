@@ -30,8 +30,13 @@ df = pd.DataFrame({
     "Years of Experience":[years_of_experience]
 
 })
+
 if st.button("Predict"):
-  for col in encoder:
-    df[col] = encoder[col].transform(df[col].values)
-   prediction = model.predict(df)
-   st.success(f"Predicted Salary:{prediction[0]:,.2f}")
+    # Apply encoders to categorical columns
+    for col in encoder:
+        df[col] = encoder[col].transform(df[col])
+
+    # Predict after encoding
+    prediction = model.predict(df)
+    st.success(f"Predicted Salary: {prediction[0]:,.2f}")
+
